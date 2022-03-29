@@ -81,6 +81,7 @@ const ContactsMap = styled.div`
 `;
 
 const ContactsMapImage = styled.img`
+  z-index: 1;
   position: absolute;
   top: 0;
   left: 0;
