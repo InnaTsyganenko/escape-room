@@ -1,10 +1,14 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { MainLayout } from 'components/common/common';
 import { ReactComponent as IconClock } from 'assets/img/icon-clock.svg';
 import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
 import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
 import * as S from './detailed-quest.styled';
 import { BookingModal } from './components/components';
+import { getQuests } from 'store/movies-data/selectors';
+import { getPickedId } from '../../store/movies-operations/selectors';
+import { getLevel, getType } from 'const';
 
 const DetailedQuest = () => {
   const [isBookingModalOpened, setIsBookingModalOpened] = useState(false);
@@ -13,45 +17,42 @@ const DetailedQuest = () => {
     setIsBookingModalOpened(true);
   };
 
+  const quests = useSelector(getQuests);
+  const pickedId = useSelector(getPickedId);
+
   return (
     <MainLayout>
-      <S.Main>
-        <S.PageImage
-          src="../img/cover-maniac.jpg"
-          alt="Квест Маньяк"
+      {quests.filter((quest) => quest.id === pickedId).map((quest) => (
+        <S.Main key={quest.id}>
+          <S.PageImage
+          src={`../${quest.coverImg}`}
+          alt={`Квест ${quest.title}`}
           width="1366"
           height="768"
         />
         <S.PageContentWrapper>
           <S.PageHeading>
-            <S.PageTitle>Маньяк</S.PageTitle>
-            <S.PageSubtitle>приключения</S.PageSubtitle>
+            <S.PageTitle>{quest.title}</S.PageTitle>
+            <S.PageSubtitle>{quest.type === 'sci-fi' ? 'Sci-fi' : getType[quest.type]}</S.PageSubtitle>
           </S.PageHeading>
 
           <S.PageDescription>
             <S.Features>
               <S.FeaturesItem>
                 <IconClock width="20" height="20" />
-                <S.FeatureTitle>90 мин</S.FeatureTitle>
+                <S.FeatureTitle>{quest.peopleCount[0]} мин</S.FeatureTitle>
               </S.FeaturesItem>
               <S.FeaturesItem>
                 <IconPerson width="19" height="24" />
-                <S.FeatureTitle>3–6 чел</S.FeatureTitle>
+                <S.FeatureTitle>{quest.peopleCount[0]}–{quest.peopleCount[1]} чел</S.FeatureTitle>
               </S.FeaturesItem>
               <S.FeaturesItem>
                 <IconPuzzle width="24" height="24" />
-                <S.FeatureTitle>средний</S.FeatureTitle>
+                <S.FeatureTitle>{getLevel[quest.level]}</S.FeatureTitle>
               </S.FeaturesItem>
             </S.Features>
 
-            <S.QuestDescription>
-              В комнате с приглушённым светом несколько человек, незнакомых друг
-              с другом, приходят в себя. Никто не помнит, что произошло прошлым
-              вечером. Руки и ноги связаным, но одному из вас получилось
-              освободиться. На стене висит пугающий таймер и запущен отстёт
-              60&nbsp;минут. Сможете ли вы разобраться в стрессовой ситуации,
-              помочь другим, разобраться что произошло и выбраться из комнаты?
-            </S.QuestDescription>
+            <S.QuestDescription>{quest.description}</S.QuestDescription>
 
             <S.QuestBookingBtn onClick={onBookingBtnClick}>
               Забронировать
@@ -60,7 +61,7 @@ const DetailedQuest = () => {
         </S.PageContentWrapper>
 
         {isBookingModalOpened && <BookingModal />}
-      </S.Main>
+      </S.Main>))}
     </MainLayout>
   );
 };

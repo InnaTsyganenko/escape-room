@@ -19,7 +19,3 @@ export const showAlert = (message) => {
   }, 9000);
 };
 
-export function LightenDarkenColor(color, amount) {
-  return (`#${color.replace(/^#/, '').replace(/../g, (col) =>
-    (`0${Math.min(255, Math.max(0, parseInt(col, 16) + amount)).toString(16)}`).substr(-2))}`);
-}
