@@ -1,4 +1,4 @@
-export const showAlert = (message) => {
+export const showAlert = (color, message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 1000;
   alertContainer.style.position = 'fixed';
@@ -9,8 +9,8 @@ export const showAlert = (message) => {
   alertContainer.style.padding = '30px 13px';
   alertContainer.style.fontSize = '30px';
   alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = '#ff5330';
-  alertContainer.style.border = '2px solid white';
+  alertContainer.style.backgroundColor = color;
+  alertContainer.style.borderRadius = '5px';
   alertContainer.style.color = 'white';
   alertContainer.textContent = message;
   document.body.append(alertContainer);

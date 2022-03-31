@@ -1,29 +1,35 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { MainLayout } from 'components/common/common';
 import { ReactComponent as IconClock } from 'assets/img/icon-clock.svg';
 import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
 import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
 import * as S from './detailed-quest.styled';
 import { BookingModal } from './components/components';
-import { getQuests } from 'store/movies-data/selectors';
-import { getPickedId } from '../../store/movies-operations/selectors';
-import { getLevel, getType } from 'const';
+import { getPickedId } from 'store/quests-operations/selectors';
+import { getQuestById } from 'store/quests-data/selectors';
+import { fetchQuestById } from 'store/api-actions';
+import { getLevel, defineQuestType } from 'const';
 
 const DetailedQuest = () => {
+  const dispatch = useDispatch();
+
   const [isBookingModalOpened, setIsBookingModalOpened] = useState(false);
 
   const onBookingBtnClick = () => {
     setIsBookingModalOpened(true);
   };
 
-  const quests = useSelector(getQuests);
   const pickedId = useSelector(getPickedId);
+  const quest = useSelector(getQuestById);
+
+  const onLoadData = () => {
+    dispatch(fetchQuestById(pickedId));
+  };
 
   return (
     <MainLayout>
-      {quests.filter((quest) => quest.id === pickedId).map((quest) => (
-        <S.Main key={quest.id}>
+      <S.Main onLoad={onLoadData} key={quest.id}>
           <S.PageImage
           src={`../${quest.coverImg}`}
           alt={`Квест ${quest.title}`}
@@ -33,14 +39,14 @@ const DetailedQuest = () => {
         <S.PageContentWrapper>
           <S.PageHeading>
             <S.PageTitle>{quest.title}</S.PageTitle>
-            <S.PageSubtitle>{quest.type === 'sci-fi' ? 'Sci-fi' : getType[quest.type]}</S.PageSubtitle>
+            <S.PageSubtitle>{defineQuestType[quest.type]}</S.PageSubtitle>
           </S.PageHeading>
 
           <S.PageDescription>
             <S.Features>
               <S.FeaturesItem>
                 <IconClock width="20" height="20" />
-                <S.FeatureTitle>{quest.peopleCount[0]} мин</S.FeatureTitle>
+                <S.FeatureTitle>{quest.duration} мин</S.FeatureTitle>
               </S.FeaturesItem>
               <S.FeaturesItem>
                 <IconPerson width="19" height="24" />
@@ -61,7 +67,7 @@ const DetailedQuest = () => {
         </S.PageContentWrapper>
 
         {isBookingModalOpened && <BookingModal />}
-      </S.Main>))}
+      </S.Main>))
     </MainLayout>
   );
 };

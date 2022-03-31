@@ -1,4 +1,4 @@
-import {moviesData} from './movies-data';
+import {questsData} from './quests-data';
 import {ActionType} from '../action';
 
 const film = [
@@ -17,7 +17,7 @@ const film = [
     director: 'Wes Andreson',
     starring: ['Bill Murray', 'Edward Norton'],
     runTime: '99',
-    genre: 'Comedy',
+    questType: 'Comedy',
     released: '2014',
     isFavorite: false,
   },
@@ -31,15 +31,15 @@ const comments = [
       name: 'Kate Muir',
     },
     rating: 8.9,
-    comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director&apos;s funniest and most exquisitely designed movies in years.',
+    comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director&apos;s funniest and most exquisitely designed quests in years.',
     date: '',
   },
 ];
 
-describe('Reducer: moviesData', () => {
+describe('Reducer: questsData', () => {
   it('without additional parameters should return initial state', () => {
-    expect(moviesData(undefined, {}))
-      .toEqual({promo: {}, movies: [], similarMovies: [], comments: [], isDataLoaded: false});
+    expect(questsData(undefined, {}))
+      .toEqual({promo: {}, quests: [], similarMovies: [], comments: [], isDataLoaded: false});
   });
 
   it('should update promo by load promo', () => {
@@ -50,23 +50,23 @@ describe('Reducer: moviesData', () => {
       payload: promo,
     };
 
-    expect(moviesData(state, loadPromo))
+    expect(questsData(state, loadPromo))
       .toEqual({promo});
   });
 
-  it('should update movies by load movies', () => {
-    const state = {movies: [], isDataLoaded: false};
-    const movies = film;
-    const loadMovies = {
-      type: ActionType.LOAD_MOVIES,
-      payload: movies,
+  it('should update quests by load quests', () => {
+    const state = {quests: [], isDataLoaded: false};
+    const quests = film;
+    const loadQuests = {
+      type: ActionType.LOAD_QUESTS,
+      payload: quests,
     };
 
-    expect(moviesData(state, loadMovies))
-      .toEqual({movies, isDataLoaded: true});
+    expect(questsData(state, loadQuests))
+      .toEqual({quests, isDataLoaded: true});
   });
 
-  it('should update similar movies by load similar movies', () => {
+  it('should update similar quests by load similar quests', () => {
     const state = {similarMovies: []};
     const similarMovies = film;
     const loadSimilarMovies = {
@@ -74,18 +74,18 @@ describe('Reducer: moviesData', () => {
       payload: similarMovies,
     };
 
-    expect(moviesData(state, loadSimilarMovies))
+    expect(questsData(state, loadSimilarMovies))
       .toEqual({similarMovies});
   });
 
   it('should update comments by load comments', () => {
     const state = {comments: []};
-    const loadComments = {
-      type: ActionType.LOAD_COMMENTS,
+    const loadQuestById = {
+      type: ActionType.LOAD_QUEST_BY_ID,
       payload: comments,
     };
 
-    expect(moviesData(state, loadComments))
+    expect(questsData(state, loadQuestById))
       .toEqual({comments});
   });
 });

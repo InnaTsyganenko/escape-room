@@ -5,17 +5,23 @@ import {
   BrowserRouter as Router,
 } from 'components/common/common';
 import { connect } from 'react-redux';
-import DetailedQuest from 'components/detailed-quest/detailed-quest';
-import Contacts from 'components/contacts/contacts';
+import LoadingScreen from 'components/loading-screen/loading-screen';
 import Home from 'components/home/home';
+import Contacts from 'components/contacts/contacts';
+import DetailedQuest from 'components/detailed-quest/detailed-quest';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import { appTheme } from './common';
 import * as S from './app.styled';
 import { AppRoute } from 'const';
 
 const App = (props) => {
-  const { pickedId } = props;
-  console.log(pickedId);
+  const { isDataLoaded, pickedId } = props;
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <ThemeProvider theme={appTheme}>
@@ -39,11 +45,9 @@ const App = (props) => {
     </ThemeProvider>
 )};
 
-const mapStateToProps = ({DATA, MOVIES}) => ({
+const mapStateToProps = ({DATA, QUESTS}) => ({
   isDataLoaded: DATA.isDataLoaded,
-  genre: MOVIES.genre,
-  moviesCountForRender: MOVIES.moviesCountForRender,
-  pickedId: MOVIES.pickedId,
+  pickedId: QUESTS.pickedId,
 });
 
 export {App};

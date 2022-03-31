@@ -5,9 +5,9 @@ import {
   checkAuth,
   login,
   fetchPromo,
-  fetchMoviesList,
+  fetchQuestsList,
   fetchSimilarMoviesList,
-  fetchComments,
+  fetchQuestById,
   logout
 } from './api-actions';
 import {APIRoute, AuthorizationStatus} from '../const';
@@ -78,20 +78,20 @@ describe('Async operations', () => {
       });
   });
 
-  it('should make a correct API call to GET /movies', () => {
+  it('should make a correct API call to GET /quests', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const moviesLoader = fetchMoviesList();
+    const moviesLoader = fetchQuestsList();
 
     apiMock
-      .onGet(APIRoute.MOVIES)
+      .onGet(APIRoute.QUESTS)
       .reply(200, [{fake: true}]);
 
     return moviesLoader(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOAD_MOVIES,
+          type: ActionType.LOAD_QUESTS,
           payload: [{fake: true}],
         });
       });
@@ -103,7 +103,7 @@ describe('Async operations', () => {
     const similarMoviesLoader = fetchSimilarMoviesList(5);
 
     apiMock
-      .onGet(`${APIRoute.MOVIES}/${5}${APIRoute.SIMILAR}`)
+      .onGet(`${APIRoute.QUESTS}/${5}${APIRoute.SIMILAR}`)
       .reply(200, [{fake: true}]);
 
     return similarMoviesLoader(dispatch, () => {}, api)
@@ -119,7 +119,7 @@ describe('Async operations', () => {
   it('should make a correct API call to GET /comments', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const commentsLoader = fetchComments(10);
+    const commentsLoader = fetchQuestById(10);
 
     apiMock
       .onGet(`${APIRoute.COMMENTS}${10}`)
@@ -129,7 +129,7 @@ describe('Async operations', () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOAD_COMMENTS,
+          type: ActionType.LOAD_QUEST_BY_ID,
           payload: [{fake: true}],
         });
       });

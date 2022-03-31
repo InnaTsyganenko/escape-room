@@ -1,22 +1,23 @@
-import browserHistory from '../browser-history';
-import { loadMovies, loadComments } from './action';
+import { loadQuests, loadQuestById } from './action';
 import { APIRoute } from 'const';
 import { showAlert } from '../utils';
 
-export const fetchMoviesList = () => (dispatch, _getState, api) => (
+export const fetchQuestsList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.QUESTS)
-    .then(({data}) => dispatch(loadMovies(data.map((element) => element))))
+    .then(({data}) => dispatch(loadQuests(data.map((element) => element))))
 );
 
-export const fetchComments = (id) => (dispatch, _getState, api) => (
-  api.get(`${APIRoute.QUESTS}${id}`)
-    .then(({data}) => dispatch(loadComments(data)))
+export const fetchQuestById = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.QUEST_BY_ID}${id}`)
+    .then(({data}) => dispatch(loadQuestById(data)))
 );
 
-export const pushComment = (filmId, rating, comment) => (dispatch, _getState, api) => (
-  api.post(`${APIRoute.COMMENTS}${filmId}`, {rating, comment})
-    .then(() => browserHistory.push(`${APIRoute.MOVIES}/${filmId}`))
+export const pushOrder = (name, peopleCount, phone, isLegal) => (dispatch, _getState, api) => (
+  api.post(APIRoute.ORDERS, {name, peopleCount, phone, isLegal})
+    .then(() => {
+      showAlert('black', `Order successfully sent!`);
+    })
     .catch((err) => {
-      showAlert(`Something wrong, please try again :( This is some kind of ${err}...`);
+      showAlert('red', `Something wrong, please try again :( This is some kind of ${err}...`);
     })
 );

@@ -27,39 +27,27 @@ export const getMenuItems = () => [
   },
 ]
 
+export const getFilters = ['Все квесты', 'Приключения', 'Ужасы', 'Мистика', 'Детектив', 'Sci-fi'];
+
 export const getLevel = {
   easy: 'простой',
   medium: 'средний',
   hard: 'сложный',
 };
 
-export const getType = {
-  adventures: 'Приключения',
-  horror: 'Ужасы',
-  mystic: 'Мистика',
-  detective: 'Детектив',
-  sciFi: 'Sci-Fi',
+export const defineQuestType = {
+  "adventures": 'Приключения',
+  "horror": 'Ужасы',
+  "mystic": 'Мистика',
+  "detective": 'Детектив',
+  "sci-fi": 'Sci-fi',
 };
 
 export const APIRoute = {
   QUESTS: '/quests',
-  PROMO: '/promo',
-  FAVORITE: '/favorite',
-  LOGIN: '/login',
-  LOGOUT: '/logout',
-  COMMENTS: '/comments/',
-  SIMILAR: '/similar',
+  QUEST_BY_ID: '/quests/',
+  ORDERS: '/orders',
 };
 
-export const AuthorizationStatus = {
-  AUTH: 'AUTH',
-  NO_AUTH: 'NO_AUTH',
-  UNKNOWN: 'UNKNOWN',
-};
-
-export const RATINGS = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-export const DEFAULT_GENRE = 'All genres';
-export const FILMS_RENDER_STEP = 8;
-export const MIN_LENGTH_COMMENT = 50;
-export const MAX_LENGTH_COMMENT = 400;
+export const DEFAULT_TYPE = 'Все квесты';
 

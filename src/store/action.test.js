@@ -1,7 +1,7 @@
 import {
   getCountMoviesForSlice,
-  getGenreForFilterMovies,
-  getIdMovie,
+  getTypeForFilterQuests,
+  getIdQuest,
   getMyList,
   addMovieInMyList,
   deleteMovieFromMyList,
@@ -12,7 +12,7 @@ import {
 
 
 describe('Actions', () => {
-  it('action creator for slice list movies returns correct action', () => {
+  it('action creator for slice list quests returns correct action', () => {
     const expectedAction = {
       type: ActionType.GET_COUNT_MOVIES_FOR_SLICE,
       payload: 8,
@@ -23,24 +23,24 @@ describe('Actions', () => {
     expect(getCountMoviesForSlice(moviesCountForRender)).toEqual(expectedAction);
   });
 
-  it('action creator for filter list movies returns action with correct genre', () => {
+  it('action creator for filter list quests returns action with correct questType', () => {
     const expectedAction = {
-      type: ActionType.GET_GENRE,
+      type: ActionType.GET_TYPE_FOR_FILTER,
       payload: 'Drama',
     };
 
-    const genre = 'Drama';
+    const questType = 'Drama';
 
-    expect(getGenreForFilterMovies(genre)).toEqual(expectedAction);
+    expect(getTypeForFilterQuests(questType)).toEqual(expectedAction);
   });
 
-  it('action creator for get id movie returns action with correct id', () => {
+  it('action creator for get id quest returns action with correct id', () => {
     const expectedAction = {
-      type: ActionType.GET_ID_MOVIE,
+      type: ActionType.GET_ID_QUEST,
       payload: 10,
     };
 
-    expect(getIdMovie(10)).toEqual(expectedAction);
+    expect(getIdQuest(10)).toEqual(expectedAction);
   });
 
   it('action creator for get my list returns action with correct my list', () => {
@@ -52,7 +52,7 @@ describe('Actions', () => {
     expect(getMyList([])).toEqual(expectedAction);
   });
 
-  it('action creator for add movie in my list returns action with add movie id', () => {
+  it('action creator for add quest in my list returns action with add quest id', () => {
     const expectedAction = {
       type: ActionType.ADD_MOVIE_IN_MY_LIST,
       payload: 9,
@@ -61,7 +61,7 @@ describe('Actions', () => {
     expect(addMovieInMyList(9)).toEqual(expectedAction);
   });
 
-  it('action creator for delete movie from my list returns action with delete movie id', () => {
+  it('action creator for delete quest from my list returns action with delete quest id', () => {
     const expectedAction = {
       type: ActionType.DELETE_MOVIE_FROM_MY_LIST,
       payload: null,

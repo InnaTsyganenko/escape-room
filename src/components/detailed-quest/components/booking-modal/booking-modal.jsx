@@ -1,7 +1,31 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import * as S from './booking-modal.styled';
 import { ReactComponent as IconClose } from 'assets/img/icon-close.svg';
+import {pushOrder} from 'store/api-actions';
 
-const BookingModal = () => (
+const BookingModal = () => {
+  const [state, setState] = useState({
+    name: '',
+    peopleCount: 0,
+    phone: 0,
+    isLegal: Boolean(),
+  });
+
+  const dispatch = useDispatch();
+
+
+  const handleInputChange = (evt) => {
+    const target = evt.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    setState({
+      ...state,
+      isLegal: value
+    });
+  }
+
+  return (
   <S.BlockLayer>
     <S.Modal>
       <S.ModalCloseBtn>
@@ -10,9 +34,13 @@ const BookingModal = () => (
       </S.ModalCloseBtn>
       <S.ModalTitle>Оставить заявку</S.ModalTitle>
       <S.BookingForm
-        action="https://echo.htmlacademy.ru"
         method="post"
         id="booking-form"
+        action="#"
+        onSubmit={(evt) => {
+          evt.preventDefault();
+          dispatch(pushOrder(state.name, state.peopleCount, state.phone, state.isLegal));
+        }}
       >
         <S.BookingField>
           <S.BookingLabel htmlFor="booking-name">Ваше Имя</S.BookingLabel>
@@ -22,6 +50,7 @@ const BookingModal = () => (
             name="booking-name"
             placeholder="Имя"
             required
+            onChange={(event) => state.name = event.target.value}
           />
         </S.BookingField>
         <S.BookingField>
@@ -34,6 +63,9 @@ const BookingModal = () => (
             name="booking-phone"
             placeholder="Телефон"
             required
+            onChange={(event) => state.phone = event.target.value}
+            minLength={10}
+            maxLength={10}
           />
         </S.BookingField>
         <S.BookingField>
@@ -46,6 +78,7 @@ const BookingModal = () => (
             name="booking-people"
             placeholder="Количество участников"
             required
+            onChange={(event) => state.peopleCount = Number(event.target.value)}
           />
         </S.BookingField>
         <S.BookingSubmit type="submit">Отправить заявку</S.BookingSubmit>
@@ -55,6 +88,8 @@ const BookingModal = () => (
             id="booking-legal"
             name="booking-legal"
             required
+            checked={state.isLegal}
+            onChange={handleInputChange}
           />
           <S.BookingCheckboxLabel
             className="checkbox-label"
@@ -72,6 +107,6 @@ const BookingModal = () => (
       </S.BookingForm>
     </S.Modal>
   </S.BlockLayer>
-);
+)};
 
 export default BookingModal;

@@ -9,17 +9,14 @@ import { ReactComponent as IconScifi } from 'assets/img/icon-scifi.svg';
 import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
 import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
 import * as S from './quests-catalog.styled';
-import { AppRoute, DEFAULT_GENRE, getLevel } from 'const';
-import { getQuests } from 'store/movies-data/selectors';
-import { getFiltredMovies, getGenre } from 'store/movies-operations/selectors';
-import { getIdMovie } from 'store/action';
+import { getQuests } from 'store/quests-data/selectors';
+import { getFiltredQuests, getQuestType } from 'store/quests-operations/selectors';
+import { getIdQuest, getTypeForFilterQuests, resetState } from 'store/action';
 import browserHistory from 'browser-history';
+import { AppRoute, getFilters, DEFAULT_TYPE, getLevel, defineQuestType } from 'const';
 
 const QuestsCatalog = () => {
-  const getFilters = ['Все квесты', 'Приключения', 'Ужасы', 'Мистика', 'Детектив', 'Sci-fi'];
-
   const [isActiveLink, setIsActiveLink] = useState(getFilters[0]);
-  // console.log(getFilters[0]);
 
   const onActiveLinkClick = (activeItem) => {
     setIsActiveLink(activeItem);
@@ -28,11 +25,10 @@ const QuestsCatalog = () => {
   const dispatch = useDispatch();
 
   const quests = useSelector(getQuests);
-  const genre = useSelector(getGenre);
-  const filtredMovies = useSelector(getFiltredMovies);
+  const questType = useSelector(getQuestType);
+  const filtredQuests = useSelector(getFiltredQuests);
 
-  const onFilmCardClick = (id) => browserHistory.push(`${AppRoute.QUEST}${id}`);
-  console.log(quests);
+  const onQuestCardClick = (id) => browserHistory.push(`${AppRoute.QUEST}${id}`);
 
   return (
   <>
@@ -40,7 +36,14 @@ const QuestsCatalog = () => {
       {getFilters.map((item) => (
         <S.TabItem key={item}>
           <S.TabBtn
-            onClick={() => onActiveLinkClick(item)}
+            onClick={() => {
+              onActiveLinkClick(item);
+              if (item === DEFAULT_TYPE) {
+                dispatch(resetState());
+              } else {
+                dispatch(getTypeForFilterQuests(Object.keys(defineQuestType).find(key => defineQuestType[key] === item)));
+              }
+            }}
             isActive={isActiveLink === getFilters.find(value => value === item) ? true : false}>
             {item === getFilters[0] ? <IconAllQuests /> : ''}
             {item === getFilters[1] ? <IconAdventures /> : ''}
@@ -54,16 +57,16 @@ const QuestsCatalog = () => {
     </S.Tabs>
 
     <S.QuestsList>
-    {((genre === DEFAULT_GENRE)
+    {((questType === DEFAULT_TYPE)
         ? quests
-        : filtredMovies)
+        : filtredQuests)
         .map((quest) => (
       <S.QuestItem key={quest.id}>
         <S.QuestItemLink
           to={`${AppRoute.QUEST}${quest.id}`}
           onClick={() => {
-            dispatch(getIdMovie(quest.id));
-            onFilmCardClick(quest.id);
+            dispatch(getIdQuest(quest.id));
+            onQuestCardClick(quest.id);
           }}>
           <S.Quest>
             <S.QuestImage
