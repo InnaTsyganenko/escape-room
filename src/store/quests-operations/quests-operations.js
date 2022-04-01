@@ -1,9 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { getTypeForFilterQuests, getIdQuest, resetState } from '../action';
+import { getTypeForFilterQuests, getIdQuest, resetPickedId, resetState } from '../action';
 import { DEFAULT_TYPE } from '../../const';
 
 const initialState = {
   type: DEFAULT_TYPE,
+  pickedId: null,
 };
 
 const questsOperations = createReducer(initialState, (builder) => {
@@ -14,9 +15,12 @@ const questsOperations = createReducer(initialState, (builder) => {
     .addCase(getIdQuest, (state, action) => {
       state.pickedId = action.payload;
     })
+    .addCase(resetPickedId, (state) => {
+      state.pickedId = initialState.pickedId;
+    })
     .addCase(resetState, (state) => {
       state.type = initialState.type;
-    })
+    });
 });
 
 export {questsOperations};

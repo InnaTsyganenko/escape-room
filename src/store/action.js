@@ -25,4 +25,6 @@ export const getIdQuest = createAction(ActionType.GET_ID_QUEST, (pickedId) => ({
   payload: pickedId,
 }));
 
+export const resetPickedId = createAction(ActionType.RESET_ID);
+
 export const resetState = createAction(ActionType.RESET_STATE);

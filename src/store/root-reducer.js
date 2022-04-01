@@ -12,7 +12,7 @@ export const NameSpace = {
 const rootPersistConfig = {
   key: 'root',
   storage,
-  blacklist: ['error', 'QUESTS'],
+  blacklist: ['QUESTS'],
 };
 
 const questsPersistConfig = {

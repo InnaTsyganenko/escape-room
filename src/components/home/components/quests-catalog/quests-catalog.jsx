@@ -12,11 +12,10 @@ import * as S from './quests-catalog.styled';
 import { getQuests } from 'store/quests-data/selectors';
 import { getFiltredQuests, getQuestType } from 'store/quests-operations/selectors';
 import { getIdQuest, getTypeForFilterQuests, resetState } from 'store/action';
-import browserHistory from 'browser-history';
-import { AppRoute, getFilters, DEFAULT_TYPE, getLevel, defineQuestType } from 'const';
+import { AppRoute, filters, DEFAULT_TYPE, getLevel, defineQuestType } from 'const';
 
 const QuestsCatalog = () => {
-  const [isActiveLink, setIsActiveLink] = useState(getFilters[0]);
+  const [isActiveLink, setIsActiveLink] = useState(filters[0]);
 
   const onActiveLinkClick = (activeItem) => {
     setIsActiveLink(activeItem);
@@ -28,12 +27,10 @@ const QuestsCatalog = () => {
   const questType = useSelector(getQuestType);
   const filtredQuests = useSelector(getFiltredQuests);
 
-  const onQuestCardClick = (id) => browserHistory.push(`${AppRoute.QUEST}${id}`);
-
   return (
   <>
     <S.Tabs>
-      {getFilters.map((item) => (
+      {filters.map((item) => (
         <S.TabItem key={item}>
           <S.TabBtn
             onClick={() => {
@@ -44,13 +41,13 @@ const QuestsCatalog = () => {
                 dispatch(getTypeForFilterQuests(Object.keys(defineQuestType).find(key => defineQuestType[key] === item)));
               }
             }}
-            isActive={isActiveLink === getFilters.find(value => value === item) ? true : false}>
-            {item === getFilters[0] ? <IconAllQuests /> : ''}
-            {item === getFilters[1] ? <IconAdventures /> : ''}
-            {item === getFilters[2] ? <IconHorrors /> : ''}
-            {item === getFilters[3] ? <IconMystic /> : ''}
-            {item === getFilters[4] ? <IconDetective /> : ''}
-            {item === getFilters[5] ? <IconScifi /> : ''}
+            isActive={isActiveLink === filters.find(value => value === item) ? true : false}>
+            {item === filters[0] ? <IconAllQuests /> : ''}
+            {item === filters[1] ? <IconAdventures /> : ''}
+            {item === filters[2] ? <IconHorrors /> : ''}
+            {item === filters[3] ? <IconMystic /> : ''}
+            {item === filters[4] ? <IconDetective /> : ''}
+            {item === filters[5] ? <IconScifi /> : ''}
             <S.TabTitle>{item}</S.TabTitle>
           </S.TabBtn>
         </S.TabItem>))}
@@ -63,11 +60,10 @@ const QuestsCatalog = () => {
         .map((quest) => (
       <S.QuestItem key={quest.id}>
         <S.QuestItemLink
-          to={`${AppRoute.QUEST}${quest.id}`}
           onClick={() => {
             dispatch(getIdQuest(quest.id));
-            onQuestCardClick(quest.id);
-          }}>
+          }}
+          to={`${AppRoute.QUEST}${quest.id}`}>
           <S.Quest>
             <S.QuestImage
               src={quest.previewImg}

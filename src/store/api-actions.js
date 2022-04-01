@@ -2,7 +2,7 @@ import { loadQuests, loadQuestById } from './action';
 import { APIRoute } from 'const';
 import { showAlert } from '../utils';
 
-export const fetchQuestsList = () => (dispatch, _getState, api) => (
+export const fetchQuestList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.QUESTS)
     .then(({data}) => dispatch(loadQuests(data.map((element) => element))))
 );

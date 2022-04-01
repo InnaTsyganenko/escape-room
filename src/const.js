@@ -27,7 +27,7 @@ export const getMenuItems = () => [
   },
 ]
 
-export const getFilters = ['Все квесты', 'Приключения', 'Ужасы', 'Мистика', 'Детектив', 'Sci-fi'];
+export const filters = ['Все квесты', 'Приключения', 'Ужасы', 'Мистика', 'Детектив', 'Sci-fi'];
 
 export const getLevel = {
   easy: 'простой',

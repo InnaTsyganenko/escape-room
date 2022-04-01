@@ -4,14 +4,14 @@ import { loadQuests, loadQuestById } from '../action';
 const initialState = {
   quests: [],
   questById: {},
-  isDataLoaded: false,
+  isQuestsLoaded: false,
 };
 
 const questsData = createReducer(initialState, (builder) => {
   builder
     .addCase(loadQuests, (state, action) => {
-      state.isDataLoaded = true;
       state.quests = action.payload;
+      state.isQuestsLoaded = true;
     })
     .addCase(loadQuestById, (state, action) => {
       state.questById = action.payload;

@@ -2,7 +2,7 @@ import { ThemeProvider } from 'styled-components';
 import {
   Switch,
   Route,
-  BrowserRouter as Router,
+  BrowserRouter as Router
 } from 'components/common/common';
 import { connect } from 'react-redux';
 import LoadingScreen from 'components/loading-screen/loading-screen';
@@ -12,15 +12,23 @@ import DetailedQuest from 'components/detailed-quest/detailed-quest';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import { appTheme } from './common';
 import * as S from './app.styled';
+import { useDispatch } from 'react-redux';
 import { AppRoute } from 'const';
+import { resetPickedId } from 'store/action';
 
 const App = (props) => {
-  const { isDataLoaded, pickedId } = props;
+  const dispatch = useDispatch();
 
-  if (!isDataLoaded) {
+  const { isQuestsLoaded, pickedId } = props;
+
+  if (!isQuestsLoaded) {
     return (
       <LoadingScreen />
     );
+  }
+
+  if (window.location.pathname === AppRoute.ROOT) {
+    dispatch(resetPickedId());
   }
 
   return (
@@ -46,7 +54,7 @@ const App = (props) => {
 )};
 
 const mapStateToProps = ({DATA, QUESTS}) => ({
-  isDataLoaded: DATA.isDataLoaded,
+  isQuestsLoaded: DATA.isQuestsLoaded,
   pickedId: QUESTS.pickedId,
 });
 

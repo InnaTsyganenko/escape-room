@@ -12,6 +12,12 @@ const BookingModal = () => {
     isLegal: Boolean(),
   });
 
+  const [isCloseBtnClick, setIsCloseBtnClick] = useState(false);
+
+  const handleCloseBtnClick = () => {
+    setIsCloseBtnClick(true);
+  };
+
   const dispatch = useDispatch();
 
 
@@ -26,9 +32,9 @@ const BookingModal = () => {
   }
 
   return (
-  <S.BlockLayer>
+  <S.BlockLayer style={isCloseBtnClick ? {display: 'none'} : {display: 'block'}}>
     <S.Modal>
-      <S.ModalCloseBtn>
+      <S.ModalCloseBtn onClick={handleCloseBtnClick}>
         <IconClose width="16" height="16" />
         <S.ModalCloseLabel>Закрыть окно</S.ModalCloseLabel>
       </S.ModalCloseBtn>
@@ -40,6 +46,7 @@ const BookingModal = () => {
         onSubmit={(evt) => {
           evt.preventDefault();
           dispatch(pushOrder(state.name, state.peopleCount, state.phone, state.isLegal));
+          handleCloseBtnClick();
         }}
       >
         <S.BookingField>

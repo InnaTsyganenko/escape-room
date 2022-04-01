@@ -39,7 +39,7 @@ const comments = [
 describe('Reducer: questsData', () => {
   it('without additional parameters should return initial state', () => {
     expect(questsData(undefined, {}))
-      .toEqual({promo: {}, quests: [], similarMovies: [], comments: [], isDataLoaded: false});
+      .toEqual({promo: {}, quests: [], similarMovies: [], comments: [], isQuestsLoaded: false});
   });
 
   it('should update promo by load promo', () => {
@@ -55,7 +55,7 @@ describe('Reducer: questsData', () => {
   });
 
   it('should update quests by load quests', () => {
-    const state = {quests: [], isDataLoaded: false};
+    const state = {quests: [], isQuestsLoaded: false};
     const quests = film;
     const loadQuests = {
       type: ActionType.LOAD_QUESTS,
@@ -63,7 +63,7 @@ describe('Reducer: questsData', () => {
     };
 
     expect(questsData(state, loadQuests))
-      .toEqual({quests, isDataLoaded: true});
+      .toEqual({quests, isQuestsLoaded: true});
   });
 
   it('should update similar quests by load similar quests', () => {

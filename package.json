@@ -1,22 +1,27 @@
 {
   "private": true,
   "dependencies": {
-    "@redux-devtools/extension": "^3.2.2",
-    "@reduxjs/toolkit": "^1.8.0",
+    "@reduxjs/toolkit": "1.8.0",
     "axios": "^0.26.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-redux": "^7.2.6",
     "react-router-dom": "5.3.0",
     "react-scripts": "4.0.3",
-    "redux-persist": "^6.0.0",
-    "reselect": "^4.1.5",
+    "redux-persist": "6.0.0",
+    "reselect": "4.1.5",
     "styled-components": "5.3.3"
   },
   "devDependencies": {
+    "@redux-devtools/extension": "3.2.2",
+    "@testing-library/jest-dom": "5.16.3",
+    "@testing-library/react": "^13.0.0",
+    "axios-mock-adapter": "^1.20.0",
     "concurrently": "6.3.0",
+    "eslint-config-htmlacademy": "5.1.0",
     "joi": "17.4.2",
     "json-server": "0.17.0",
+    "redux-mock-store": "^1.5.4",
     "sass": "1.43.4"
   },
   "scripts": {
@@ -24,6 +29,8 @@
     "start:server": "node server/server",
     "start": "concurrently -k -p \"{name}\" -n \"CLIENT,SERVER\" -c \"green,blue\" \"npm:start:client\" \"npm:start:server\"",
     "build": "react-scripts build",
+    "start:eslint": "npm run eslint",
+    "test": "react-scripts test --passWithNoTests",
     "eslint": "eslint --ext .jsx --ext .js src/"
   },
   "eslintConfig": {
