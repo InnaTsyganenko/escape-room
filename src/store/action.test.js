@@ -1,7 +1,6 @@
 import {
   getTypeForFilterQuests,
   getIdQuest,
-  resetPickedId,
   resetState,
   ActionType
 } from './action';
@@ -27,15 +26,6 @@ describe('Actions', () => {
     };
 
     expect(getIdQuest(1)).toEqual(expectedAction);
-  });
-
-  it('action creator for reset id returns action with id=null payload', () => {
-    const expectedAction = {
-      type: ActionType.RESET_ID,
-      payload: null,
-    };
-
-    expect(resetPickedId(null)).toEqual(expectedAction);
   });
 
   it('action creator for reset state returns action with undefined payload', () => {

@@ -6,7 +6,6 @@ export const ActionType = {
   GET_TYPE_FOR_FILTER: 'getTypeForFilterQuests',
   GET_ID_QUEST: 'getIdQuest',
   RESET_STATE: 'resetState',
-  RESET_ID: 'resetPickedId',
 };
 
 export const loadQuests = createAction(ActionType.LOAD_QUESTS, (quests) => ({
@@ -24,7 +23,5 @@ export const getTypeForFilterQuests = createAction(ActionType.GET_TYPE_FOR_FILTE
 export const getIdQuest = createAction(ActionType.GET_ID_QUEST, (pickedId) => ({
   payload: pickedId,
 }));
-
-export const resetPickedId = createAction(ActionType.RESET_ID);
 
 export const resetState = createAction(ActionType.RESET_STATE);

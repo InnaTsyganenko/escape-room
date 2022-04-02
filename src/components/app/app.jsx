@@ -12,12 +12,9 @@ import DetailedQuest from 'components/detailed-quest/detailed-quest';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import { appTheme } from './common';
 import * as S from './app.styled';
-import { useDispatch } from 'react-redux';
 import { AppRoute } from 'const';
-import { resetPickedId } from 'store/action';
 
 const App = (props) => {
-  const dispatch = useDispatch();
 
   const { isQuestsLoaded, pickedId } = props;
 
@@ -27,9 +24,6 @@ const App = (props) => {
     );
   }
 
-  if (window.location.pathname === AppRoute.ROOT) {
-    dispatch(resetPickedId());
-  }
 
   return (
     <ThemeProvider theme={appTheme}>

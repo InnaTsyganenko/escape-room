@@ -1,9 +1,13 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import logo from 'assets/img/logo.svg';
 import * as S from './header.styled';
 import { getMenuItems } from 'const';
+import { resetState } from 'store/action';
 
 const Header = () => {
+  const dispatch = useDispatch();
+
   const [isActiveLink, setIsActiveLink] = useState(window.location.pathname);
 
   const onActiveLinkClick = (activeItem) => {
@@ -23,7 +27,10 @@ const Header = () => {
         {getMenuItems().map((link) => (
           <S.LinkItem key={link.name}>
           <S.Link
-            onClick={() => onActiveLinkClick(link.name)}
+            onClick={() => {
+              onActiveLinkClick(link.name);
+              dispatch(resetState());
+            }}
             to={link.path}
             $isActiveLink={isActiveLink === link.path ? true : false}>
             {link.name}

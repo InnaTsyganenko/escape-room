@@ -53,7 +53,7 @@ const Contacts = () => {
             frameBorder="0"
             loading="lazy"
             title="мы находимся по адресу Санкт-Петербург, Набережная реки Карповка, д 5"
-            onLoad={() => onMapLoad()}
+            onLoad={onMapLoad}
             ></iframe>
             <S.ContactsMapImage
               src={contactsMap}

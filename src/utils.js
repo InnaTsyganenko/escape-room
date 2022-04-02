@@ -8,6 +8,7 @@ export const showAlert = (color, message) => {
   alertContainer.style.left = '50px';
   alertContainer.style.padding = '30px 13px';
   alertContainer.style.fontSize = '30px';
+  alertContainer.style.lineHeight = '40px';
   alertContainer.style.textAlign = 'center';
   alertContainer.style.backgroundColor = color;
   alertContainer.style.borderRadius = '5px';
