@@ -1,4 +1,3 @@
-import React from 'react';
 import {render} from '@testing-library/react';
 import { BrowserRouter } from 'components/common/common';
 import {createMemoryHistory} from 'history';
@@ -8,6 +7,7 @@ import { appTheme } from '../app/common';
 import * as S from '../app/app.styled';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import '@testing-library/jest-dom';
 
 const createFakeStore = configureStore();
     let store = createFakeStore({
@@ -31,7 +31,7 @@ describe('Component: Contacts', () => {
     const headerElement = getByText('Адрес');
     const linkElement = getByText('квесты в Санкт-Петербурге');
 
-    expect(headerElement).toBeInTheDocument;
-    expect(linkElement).toBeInTheDocument;
+    expect(headerElement).toBeInTheDocument();
+    expect(linkElement).toBeInTheDocument();
   });
 });

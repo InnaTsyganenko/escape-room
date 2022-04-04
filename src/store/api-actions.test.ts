@@ -3,11 +3,9 @@ import {createAPI} from '../services/api';
 import {ActionType} from './action';
 import {
   fetchQuestList,
-  fetchQuestById,
-  pushOrder
+  fetchQuestById
 } from './api-actions';
 import {APIRoute} from '../const';
-import {questsMock} from '../utils/mock';
 
 let api: any = null;
 

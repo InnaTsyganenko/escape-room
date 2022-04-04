@@ -1,5 +1,4 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'components/common/common';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
@@ -42,13 +41,4 @@ describe('Application Routing', () => {
   it('should render "ContactsScreen" when user navigate to "/contacts"', () => {
     history.push(AppRoute.CONTACTS);
   });
-
-  // it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
-  //   history.push('/non-existent-route');
-  //   render(fakeApp);
-
-  //   expect(screen.getByText('Oooops!')).toBeInTheDocument();
-  //   expect(screen.getByText('404. The page does not exist.')).toBeInTheDocument();
-  //   expect(screen.getByText('main page')).toBeInTheDocument();
-  // });
 });

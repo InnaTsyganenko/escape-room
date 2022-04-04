@@ -27,7 +27,7 @@ const DetailedQuest = () => {
   };
 
   useEffect(() => {
-    return dispatch(fetchQuestById(pickedId))
+    dispatch(fetchQuestById(pickedId))
       .then(() => {
           setIsLoaded(true);
         },

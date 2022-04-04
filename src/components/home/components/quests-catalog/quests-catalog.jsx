@@ -41,7 +41,7 @@ const QuestsCatalog = () => {
             onClick={() => {
               onActiveLinkClick(item);
             }}
-            isActive={isActiveLink === filters.find(value => value === item) ? true : false}
+            isActive={isActiveLink === item}
             >
             {item === filters[0] ? <IconAllQuests /> : ''}
             {item === filters[1] ? <IconAdventures /> : ''}

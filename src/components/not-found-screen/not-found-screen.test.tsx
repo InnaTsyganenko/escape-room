@@ -6,6 +6,7 @@ import NotFoundScreen from './not-found-screen';
 import { ThemeProvider } from 'styled-components';
 import { appTheme } from '../app/common';
 import * as S from '../app/app.styled';
+import '@testing-library/jest-dom';
 
 describe('Component: NotFoundScreen', () => {
   it('should render correctly', () => {
@@ -21,7 +22,7 @@ describe('Component: NotFoundScreen', () => {
     const headerElement = getByText('Oooops! 404. The page does not exist.');
     const linkElement = getByText('Go to main page?');
 
-    expect(headerElement).toBeInTheDocument;
-    expect(linkElement).toBeInTheDocument;
+    expect(headerElement).toBeInTheDocument();
+    expect(linkElement).toBeInTheDocument();
   });
 });

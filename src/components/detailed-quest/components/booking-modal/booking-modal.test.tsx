@@ -1,4 +1,3 @@
-import React from 'react';
 import {render} from '@testing-library/react';
 import { BrowserRouter } from 'components/common/common';
 import {createMemoryHistory} from 'history';
@@ -8,15 +7,14 @@ import { appTheme } from '../../../app/common';
 import * as S from '../../../app/app.styled';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import '@testing-library/jest-dom';
 
 const mockStore = configureStore();
-let history;
 let store: any;
 
 describe('Component: BookingModal', () => {
   beforeEach(() => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
-    history = createMemoryHistory();
     store = mockStore({
       DATA: {quests: [], isDataLoaded: true},
       QUESTS: {type: 'Все квесты', pickedId: 0},
@@ -37,6 +35,6 @@ describe('Component: BookingModal', () => {
     );
     const headerElement = getByText('Оставить заявку');
 
-    expect(headerElement).toBeInTheDocument;
+    expect(headerElement).toBeInTheDocument();
   });
 });

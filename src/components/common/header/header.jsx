@@ -1,14 +1,18 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import logo from 'assets/img/logo.svg';
 import * as S from './header.styled';
 import { getMenuItems } from 'const';
+import { resetState } from 'store/action';
 
 const Header = () => {
+  const dispatch = useDispatch();
 
   const [isActiveLink, setIsActiveLink] = useState(window.location.pathname);
 
   const onActiveLinkClick = (activeItem) => {
     setIsActiveLink(activeItem);
+    dispatch(resetState());
   };
 
   return (

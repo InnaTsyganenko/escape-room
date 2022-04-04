@@ -5,6 +5,7 @@ import LoadingScreen from './loading-screen';
 import { ThemeProvider } from 'styled-components';
 import { appTheme } from '../app/common';
 import * as S from '../app/app.styled';
+import '@testing-library/jest-dom';
 
 describe('Component: LoadingScreen', () => {
   it('should render correctly', () => {
@@ -19,6 +20,6 @@ describe('Component: LoadingScreen', () => {
     );
     const headerElement = getByText('Loading...');
 
-    expect(headerElement).toBeInTheDocument;
+    expect(headerElement).toBeInTheDocument();
   });
 });
