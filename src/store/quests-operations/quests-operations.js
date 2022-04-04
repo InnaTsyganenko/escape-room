@@ -4,7 +4,7 @@ import { DEFAULT_TYPE } from '../../const';
 
 const initialState = {
   type: DEFAULT_TYPE,
-  pickedId: null,
+  pickedId: 0,
 };
 
 const questsOperations = createReducer(initialState, (builder) => {

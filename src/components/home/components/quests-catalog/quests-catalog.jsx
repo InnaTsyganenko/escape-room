@@ -19,6 +19,11 @@ const QuestsCatalog = () => {
 
   const onActiveLinkClick = (activeItem) => {
     setIsActiveLink(activeItem);
+    if (activeItem === DEFAULT_TYPE) {
+      dispatch(resetState());
+    } else {
+      dispatch(getTypeForFilterQuests(Object.keys(defineQuestType).find(key => defineQuestType[key] === activeItem)));
+    }
   };
 
   const dispatch = useDispatch();
@@ -35,13 +40,9 @@ const QuestsCatalog = () => {
           <S.TabBtn
             onClick={() => {
               onActiveLinkClick(item);
-              if (item === DEFAULT_TYPE) {
-                dispatch(resetState());
-              } else {
-                dispatch(getTypeForFilterQuests(Object.keys(defineQuestType).find(key => defineQuestType[key] === item)));
-              }
             }}
-            isActive={isActiveLink === filters.find(value => value === item) ? true : false}>
+            isActive={isActiveLink === filters.find(value => value === item) ? true : false}
+            >
             {item === filters[0] ? <IconAllQuests /> : ''}
             {item === filters[1] ? <IconAdventures /> : ''}
             {item === filters[2] ? <IconHorrors /> : ''}

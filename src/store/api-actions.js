@@ -1,6 +1,6 @@
 import { loadQuests, loadQuestById } from './action';
 import { APIRoute } from 'const';
-import { showAlert } from '../utils';
+import { showAlert } from '../utils/utils';
 
 export const fetchQuestList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.QUESTS)
@@ -15,7 +15,7 @@ export const fetchQuestById = (id) => (dispatch, _getState, api) => (
 export const pushOrder = (name, peopleCount, phone, isLegal) => (dispatch, _getState, api) => (
   api.post(APIRoute.ORDERS, {name, peopleCount, phone, isLegal})
     .then(() => {
-      showAlert('black', `Order successfully sent!`);
+      showAlert('darkred', `Order successfully sent!`);
     })
     .catch((err) => {
       showAlert('red', `Something wrong, please try again :( This is some kind of ${err}...`);

@@ -10,7 +10,7 @@ import { getPickedId } from 'store/quests-operations/selectors';
 import { getQuestById } from 'store/quests-data/selectors';
 import { fetchQuestById } from 'store/api-actions';
 import { getLevel, defineQuestType } from 'const';
-import { showAlert } from 'utils';
+import { showAlert } from 'utils/utils';
 import LoadingScreen from 'components/loading-screen/loading-screen';
 
 const DetailedQuest = () => {
@@ -23,11 +23,11 @@ const DetailedQuest = () => {
   const pickedId = useSelector(getPickedId);
 
   const handleBookingBtnClick = () => {
-    setIsBookingModalOpened(true);
+    setIsBookingModalOpened(!isBookingModalOpened);
   };
 
   useEffect(() => {
-    dispatch(fetchQuestById(pickedId))
+    return dispatch(fetchQuestById(pickedId))
       .then(() => {
           setIsLoaded(true);
         },
@@ -84,7 +84,7 @@ const DetailedQuest = () => {
           </S.PageDescription>
         </S.PageContentWrapper>
 
-        {isBookingModalOpened && <BookingModal />}
+        {isBookingModalOpened && <BookingModal isBookingModalOpened={isBookingModalOpened} onBookingModalCloseClick={handleBookingBtnClick} />}
       </S.Main>
     </MainLayout>
   )};

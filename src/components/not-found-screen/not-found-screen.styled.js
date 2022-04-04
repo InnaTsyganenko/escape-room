@@ -1,10 +1,9 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { PageHeading as Heading } from 'components/common/common';
-import { css } from 'styled-components';
 import { Link as RouterLink } from 'components/common/common';
 import contactsBg from 'assets/img/contacts-bg.jpg';
 
-const Main = styled.main`
+const Main = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -34,6 +33,16 @@ const PageHeading = styled(Heading)`
   border-bottom: 0.5px solid rgba(230, 230, 230, 0.25);
 `;
 
+const PageTitle = styled.h1`
+  margin: 0;
+  padding: 0;
+
+  font-size: ${({ theme }) => theme.font.semilarge};
+  line-height: 110%;
+  font-weight: 800;
+  color: ${({ theme }) => theme.color.white};
+`;
+
 const Link = styled(RouterLink)`
   display: block;
   font-size: 26px;
@@ -60,5 +69,6 @@ export {
   Main,
   ContentWrapper,
   PageHeading,
+  PageTitle,
   Link,
 };

@@ -16,9 +16,9 @@ import { AppRoute } from 'const';
 
 const App = (props) => {
 
-  const { isQuestsLoaded, pickedId } = props;
+  const { isDataLoaded, pickedId } = props;
 
-  if (!isQuestsLoaded) {
+  if (!isDataLoaded) {
     return (
       <LoadingScreen />
     );
@@ -48,7 +48,7 @@ const App = (props) => {
 )};
 
 const mapStateToProps = ({DATA, QUESTS}) => ({
-  isQuestsLoaded: DATA.isQuestsLoaded,
+  isDataLoaded: DATA.isDataLoaded,
   pickedId: QUESTS.pickedId,
 });
 

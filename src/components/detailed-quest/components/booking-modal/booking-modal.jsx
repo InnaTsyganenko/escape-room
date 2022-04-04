@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import * as S from './booking-modal.styled';
 import { ReactComponent as IconClose } from 'assets/img/icon-close.svg';
 import {pushOrder} from 'store/api-actions';
+import PropTypes from 'prop-types';
 
-const BookingModal = () => {
+const BookingModal = ({ isBookingModalOpened, onBookingModalCloseClick }) => {
   const [state, setState] = useState({
     name: '',
     peopleCount: 0,
@@ -12,14 +13,7 @@ const BookingModal = () => {
     isLegal: Boolean(),
   });
 
-  const [isCloseBtnClick, setIsCloseBtnClick] = useState(false);
-
-  const handleCloseBtnClick = () => {
-    setIsCloseBtnClick(true);
-  };
-
   const dispatch = useDispatch();
-
 
   const handleInputChange = (evt) => {
     const target = evt.target;
@@ -31,10 +25,20 @@ const BookingModal = () => {
     });
   }
 
+  useEffect(() => {
+    const isEscEvent = (evt) => {
+      if (evt.key === ('Escape' || 'Esc')){
+        onBookingModalCloseClick();
+      }
+    }
+    window.addEventListener('keydown', isEscEvent)
+  return () => window.removeEventListener('keydown', isEscEvent)
+},[onBookingModalCloseClick])
+
   return (
-  <S.BlockLayer style={isCloseBtnClick ? {display: 'none'} : {display: 'block'}}>
+  <S.BlockLayer style={isBookingModalOpened ? {display: 'block'} : {display: 'none'}}>
     <S.Modal>
-      <S.ModalCloseBtn onClick={handleCloseBtnClick}>
+      <S.ModalCloseBtn onClick={() => onBookingModalCloseClick()}>
         <IconClose width="16" height="16" />
         <S.ModalCloseLabel>Закрыть окно</S.ModalCloseLabel>
       </S.ModalCloseBtn>
@@ -46,7 +50,7 @@ const BookingModal = () => {
         onSubmit={(evt) => {
           evt.preventDefault();
           dispatch(pushOrder(state.name, state.peopleCount, state.phone, state.isLegal));
-          handleCloseBtnClick();
+          onBookingModalCloseClick();
         }}
       >
         <S.BookingField>
@@ -115,5 +119,10 @@ const BookingModal = () => {
     </S.Modal>
   </S.BlockLayer>
 )};
+
+BookingModal.propTypes = {
+  isBookingModalOpened: PropTypes.bool,
+  onBookingModalCloseClick: PropTypes.func,
+};
 
 export default BookingModal;

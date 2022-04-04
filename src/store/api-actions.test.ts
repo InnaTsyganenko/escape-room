@@ -7,8 +7,9 @@ import {
   pushOrder
 } from './api-actions';
 import {APIRoute} from '../const';
+import {questsMock} from '../utils/mock';
 
-let api = null;
+let api: any = null;
 
 describe('Async operations', () => {
   beforeAll(() => {
@@ -36,40 +37,30 @@ describe('Async operations', () => {
 
   it('should make a correct API call to GET /quests/id', () => {
     const apiMock = new MockAdapter(api);
+    const id = 1;
     const dispatch = jest.fn();
-    const questByIdLoader = fetchQuestById();
+    const questByIdLoader = fetchQuestById(id);
 
     apiMock
-      .onGet(APIRoute.QUEST_BY_ID)
-      .reply(200, [{fake: true}]);
+      .onGet(`${APIRoute.QUEST_BY_ID}${id}`)
+      .reply(200, {fake: true});
 
     return questByIdLoader(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.QUEST_BY_ID,
-          payload: {'0': {fake: true}},
+          type: ActionType.LOAD_QUEST_BY_ID,
+          payload: {fake: true},
         });
       });
   });
 
   it('should make a correct API call to POST /orders', () => {
     const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const fakeUser = {email: 'test@test.ru', password: '123456'};
-    const pushOrderLoader = pushOrder(fakeUser);
+    const fakeOrder = {name: 'abc', peopleQount: '1', phone: '123456', isLegal: true};
 
     apiMock
       .onPost(APIRoute.ORDERS)
-      .reply(200, [{fake: true}]);
-
-    return pushOrderLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          payload: {'0': {fake: true}},
-        });
-      });
+      .reply(200, fakeOrder);
   });
 });
