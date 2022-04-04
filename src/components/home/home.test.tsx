@@ -10,10 +10,10 @@ import configureStore from 'redux-mock-store';
 import '@testing-library/jest-dom';
 
 const createFakeStore = configureStore();
-    let store = createFakeStore({
-      DATA: {quests: [], isDataLoaded: true},
-      QUESTS: {type: 'Все квесты', pickedId: 0},
-    });
+let store = createFakeStore({
+  DATA: {quests: [], isDataLoaded: true},
+  QUESTS: {type: 'Все квесты', pickedId: 0},
+});
 
 describe('Component: HomePage', () => {
   it('should render correctly', () => {

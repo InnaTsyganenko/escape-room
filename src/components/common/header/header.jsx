@@ -11,8 +11,12 @@ const Header = () => {
   const [isActiveLink, setIsActiveLink] = useState(window.location.pathname);
 
   const onActiveLinkClick = (activeItem) => {
-    setIsActiveLink(activeItem);
-    dispatch(resetState());
+    if (window.location.pathname === '/') {
+      return;
+    } else {
+      setIsActiveLink(activeItem);
+      dispatch(resetState());
+    }
   };
 
   return (
