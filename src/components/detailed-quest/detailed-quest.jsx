@@ -27,15 +27,18 @@ const DetailedQuest = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchQuestById(pickedId))
+    const fetchData = async () => {
+      await dispatch(fetchQuestById(pickedId))
       .then(() => {
-          setIsLoaded(true);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
+        setIsLoaded(true);
+      },
+      (error) => {
+        setIsLoaded(true);
+        setError(error);
+      })
+    }
+
+    fetchData();
   }, [dispatch, pickedId])
 
   const quest = useSelector(getQuestById);
